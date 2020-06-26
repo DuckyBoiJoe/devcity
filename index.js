@@ -235,4 +235,4 @@ client.on('messageUpdate', (old, msg) => {
   channel.send(embed)
 })
 
-client.login(process.ENV.BOT_TOKEN)
+client.login(process.env.BOT_TOKEN)
