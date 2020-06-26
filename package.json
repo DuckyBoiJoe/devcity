@@ -1,0 +1,19 @@
+{
+  "name": "devcity",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Flexy",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^12.2.0",
+    "ms": "^2.1.2",
+    "noblox.js": "^4.5.6",
+    "opusscript": "0.0.7",
+    "rbx.js": "^1.0.3",
+    "ytdl-core": "^2.1.7"
+  }
+}
