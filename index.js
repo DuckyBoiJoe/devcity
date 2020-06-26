@@ -1,7 +1,6 @@
 const Discord = require('discord.js')
 const client = new Discord.Client()
 const prefix = ','
-const token = 'NzA3MzIzMDc2MzE2MTAyNzQ3.XrQ6FQ.BvZORx9lOieixtoFUivxlWae-kk'
 const fs = require('fs')
 const ms = require('ms')
 var editlog = false
@@ -236,4 +235,4 @@ client.on('messageUpdate', (old, msg) => {
   channel.send(embed)
 })
 
-client.login(token)
+client.login(process.ENV.BOT_TOKEN)
