@@ -235,4 +235,13 @@ client.on('messageUpdate', (old, msg) => {
   channel.send(embed)
 })
 
+client.on('messageReactionAdd', (reaction, user) => {
+  const member = reaction.message.guild.member(user)
+  if(!member) return
+  if(!member.permissions.has('MANAGE_MESSAGES')) return
+  if(reaction.emoji.url == 'https://cdn.discordapp.com/emojis/727319361471250502.png?v=1') {
+    reaction.message.delete()
+  }
+})
+
 client.login(process.env.BOT_TOKEN)
