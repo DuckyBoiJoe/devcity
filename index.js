@@ -172,6 +172,7 @@ client.on('message', msg => {
   }
 
   if(msg.content.startsWith(`${prefix}warn`)) {
+    if(msg.content.startsWith(`${prefix}warnings`)) return
     if(!msg.member.permissions.has('MANAGE_MESSAGES')) return msg.channel.send('You do not have the required permissions')
     const user = msg.mentions.members.first()
     if(!user) return msg.channel.send('You need to mention somebody')
