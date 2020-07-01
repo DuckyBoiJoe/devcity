@@ -149,9 +149,15 @@ client.on('message', msg => {
     
   }
 
+
   if(msg.content == `${prefix}lock`) {
     msg.channel.updateOverwrite(msg.guild.roles.everyone, { SEND_MESSAGES: false })
     msg.channel.send('Successfully locked ' + msg.channel.name)
+  }
+
+  if(msg.content.startsWith(`${prefix}slowmode`)) {
+    if(!args[1]) return msg.channel.send('Please add a time for the slowmode.')
+    msg.channel.setRateLimitPerUser(args[1])
   }
 
   if(msg.content.startsWith(`${prefix}warn`)) {
@@ -174,6 +180,11 @@ client.on('message', msg => {
   }
 
   if(msg.content.includes('discord.gg')) {
+    const advertisementchannel = msg.guild.channels.cache.find(c => c.name == 'advertising' && c.type == 'text')
+    if(!advertisementchannel) return
+    if(msg.channel == advertisementchannel) return
+    if(msg.member.permissions.has('MANAGE_MESSAGES')) return
+
     msg.delete()
 
     if(!warns[msg.author.id]) warns[msg.author.id] = {
@@ -190,6 +201,10 @@ client.on('message', msg => {
   }
 
   if(msg.content.includes('https')) {
+    const advertisementchannel = msg.guild.channels.cache.find(c => c.name == 'advertising' && c.type == 'text')
+    if(!advertisementchannel) return
+    if(msg.channel == advertisementchannel) return
+    if(msg.member.permissions.has('MANAGE_MESSAGES')) return
     msg.delete()
 
     if(!warns[msg.author.id]) warns[msg.author.id] = {
@@ -222,6 +237,15 @@ client.on('messageDelete', msg => {
   channel.send(embed)
 })
 
+client.on('messageReactionAdd', (reaction, user) => {
+  const member = reaction.message.guild.member(user)
+  if(!member) return
+  if(!member.permissions.has('MANAGE_MESSAGES')) return
+  if(reaction.emoji.url == 'https://cdn.discordapp.com/emojis/727319361471250502.png?v=1') {
+    reaction.message.delete()
+  }
+})
+
 
 client.on('messageUpdate', (old, msg) => {
   if (!editlog) return
@@ -233,15 +257,6 @@ client.on('messageUpdate', (old, msg) => {
     .addField("ID", msg.id)
     .addField("Link", msg.url)
   channel.send(embed)
-})
-
-client.on('messageReactionAdd', (reaction, user) => {
-  const member = reaction.message.guild.member(user)
-  if(!member) return
-  if(!member.permissions.has('MANAGE_MESSAGES')) return
-  if(reaction.emoji.url == 'https://cdn.discordapp.com/emojis/727319361471250502.png?v=1') {
-    reaction.message.delete()
-  }
 })
 
 client.login(process.env.BOT_TOKEN)
