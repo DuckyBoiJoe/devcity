@@ -157,7 +157,9 @@ client.on('message', msg => {
 
   if(msg.content.startsWith(`${prefix}slowmode`)) {
     if(!args[1]) return msg.channel.send('Please add a time for the slowmode.')
+    if(args[1] >= 21600) args[1] = 21600
     msg.channel.setRateLimitPerUser(args[1])
+    msg.channel.send("Successfully set the slowmode for "+ msg.channel.name + " to "+ args[1] + " seconds")
   }
 
   if(msg.content.startsWith(`${prefix}warn`)) {
