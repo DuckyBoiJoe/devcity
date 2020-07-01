@@ -111,6 +111,16 @@ client.on('message', msg => {
     }
   }
 
+  if(msg.content.startsWith(`${prefix}warnings`)) {
+    var user = msg.mentions.members.first()
+    if(!user) user = msg.author
+    const member = msg.guild.member(user)
+    if(!member) return msg.channel.send('Invalid Member')
+    const Embed = new Discord.MessageEmbed()
+    .setTitle(`${member.displayName}'s Warnings`)
+    .addField('Amount', warns[member.id].warnings)
+    msg.channel.send(Embed)
+  }
   if(msg.content == `${prefix}userinfo`) {
     const embed = new Discord.MessageEmbed()
     .setTitle(`${msg.author.username}'s Info`)
@@ -157,9 +167,8 @@ client.on('message', msg => {
 
   if(msg.content.startsWith(`${prefix}slowmode`)) {
     if(!args[1]) return msg.channel.send('Please add a time for the slowmode.')
-    if(args[1] >= 21600) args[1] = 21600
+    if(args[1] > 21600) args[1] = 21600
     msg.channel.setRateLimitPerUser(args[1])
-    msg.channel.send("Successfully set the slowmode for "+ msg.channel.name + " to "+ args[1] + " seconds")
   }
 
   if(msg.content.startsWith(`${prefix}warn`)) {
