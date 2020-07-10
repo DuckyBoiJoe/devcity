@@ -195,6 +195,9 @@ client.on('message', msg => {
     const advertisementchannel = msg.guild.channels.cache.find(c => c.name == 'advertising' && c.type == 'text')
     if(!advertisementchannel) return
     if(msg.channel == advertisementchannel) return
+     const chan = msg.guild.channels.cache.find(c => c.name == 'recruit' && c.type == 'text')
+    if(!chan) return
+    if(msg.channel == chan) return
     if(msg.member.permissions.has('MANAGE_MESSAGES')) return
 
     msg.delete()
@@ -216,6 +219,9 @@ client.on('message', msg => {
     const advertisementchannel = msg.guild.channels.cache.find(c => c.name == 'advertising' && c.type == 'text')
     if(!advertisementchannel) return
     if(msg.channel == advertisementchannel) return
+    const chan = msg.guild.channels.cache.find(c => c.name == 'recruit' && c.type == 'text')
+    if(!chan) return
+    if(msg.channel == chan) return
     if(msg.member.permissions.has('MANAGE_MESSAGES')) return
     msg.delete()
 
